@@ -32,55 +32,60 @@ void initiate(int x_end, int y_end)
 {
 	glClearColor(0.0, 0.0, 0.0, 0.0);
 	glMatrixMode(GL_PROJECTION);
-	gluOrtho2D(0.0, x_end, 0.0, y_end);
+	gluOrtho2D(-(x_end/2), x_end/2, -(y_end/2), y_end/2);
 }
 
 void mainLines(void)
 {
-  int x_center = (int) x / 2, y_center = (int) y / 2, spacing = 20;
+	int x_center = (int)x / 2, y_center = (int)y / 2, spacing = 20;
 	glClear(GL_COLOR_BUFFER_BIT);
-  glColor3f(0.5, 0.5, 0.5);
+	glColor3f(0.5, 0.5, 0.5);
 	glBegin(GL_LINES);
-	int x1 = x_center + spacing, x2 = x_center - spacing;
-  int y1 = y_center + spacing, y2 = y_center - spacing;
-	while (x1 < x)
+	int x1 = 0 + spacing, x2 = 0 - spacing;
+	int y1 = 0 + spacing, y2 = 0 - spacing;
+	while (x1 < x/2)
 	{
-		glVertex2i(x1, 0);
-		glVertex2i(x1, y);
-    glVertex2i(x2, 0);
-		glVertex2i(x2, y);
+		glVertex2i(x1, - y_center);
+		glVertex2i(x1, y_center);
+		glVertex2i(x2, -y_center);
+		glVertex2i(x2, y_center);
 		x1 += spacing;
-    x2 -= spacing;
+		x2 -= spacing;
 	}
-	while (y1 < y)
+	while (y1 < y/2)
 	{
-		glVertex2i(0, y1);
-		glVertex2i(x, y1);
-    glVertex2i(0, y2);
-		glVertex2i(x, y2);
+		glVertex2i(-x_center, y1);
+		glVertex2i(x_center, y1);
+		glVertex2i(-x_center, y2);
+		glVertex2i(x_center, y2);
 		y1 += spacing;
-    y2 -= spacing;
+		y2 -= spacing;
 	}
 	glEnd();
 	glColor3f(1.0, 0.0, 0.0);
 	glBegin(GL_LINES);
-	glVertex2i(x_center, y_center);
-	glVertex2i(x, y_center);
+	glVertex2i(0, 0);
+	glVertex2i(x_center, 0);
 	glEnd();
 	glColor3f(0.0, 1.0, 0.0);
 	glBegin(GL_LINES);
-	glVertex2i(x_center, y_center);
-	glVertex2i(x_center, y);
-	glEnd();
-  glColor3f(0.0, 0.0, 1.0);
-	glBegin(GL_LINES);
-	glVertex2i(x_center, y_center);
+	glVertex2i(0, 0);
 	glVertex2i(0, y_center);
+	glEnd();
+	glColor3f(0.0, 0.0, 1.0);
+	glBegin(GL_LINES);
+	glVertex2i(0, 0);
+	glVertex2i(-x_center, 0);
 	glEnd();
 	glColor3f(1.0, 1.0, 0.0);
 	glBegin(GL_LINES);
-	glVertex2i(x_center, y_center);
-	glVertex2i(x_center, 0);
+	glVertex2i(0, 0);
+	glVertex2i(0, - y_center);
+	glEnd();
+	glColor3f(1.0, 1.0, 1.0);
+	glBegin(GL_LINES);
+	glVertex2i(0, 0);
+	glVertex2i(80, 40);
 	glEnd();
 	glFlush();
 }
