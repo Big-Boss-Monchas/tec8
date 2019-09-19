@@ -7,7 +7,7 @@ void mainLines(void);
 
 int x, y;
 
-int main(int argc, char *argv[])
+int main(int argc, char* argv[])
 {
 	glutInit(&argc, argv);
 	std::cout << "Please enter width size:";
@@ -37,50 +37,61 @@ void initiate(int x_end, int y_end)
 
 void mainLines(void)
 {
-  int x_center = (int) x / 2, y_center = (int) y / 2, spacing = 20;
+	int x_center = (int)x / 2, y_center = (int)y / 2, spacing = 50;
 	glClear(GL_COLOR_BUFFER_BIT);
-  glColor3f(0.5, 0.5, 0.5);
+	glColor3f(0.5, 0.5, 0.5);
 	glBegin(GL_LINES);
 	int x1 = x_center + spacing, x2 = x_center - spacing;
-  int y1 = y_center + spacing, y2 = y_center - spacing;
+	int y1 = y_center + spacing, y2 = y_center - spacing;
 	while (x1 < x)
 	{
 		glVertex2i(x1, 0);
 		glVertex2i(x1, y);
-    glVertex2i(x2, 0);
+		glVertex2i(x2, 0);
 		glVertex2i(x2, y);
 		x1 += spacing;
-    x2 -= spacing;
+		x2 -= spacing;
 	}
 	while (y1 < y)
 	{
 		glVertex2i(0, y1);
 		glVertex2i(x, y1);
-    glVertex2i(0, y2);
+		glVertex2i(0, y2);
 		glVertex2i(x, y2);
 		y1 += spacing;
-    y2 -= spacing;
+		y2 -= spacing;
 	}
 	glEnd();
+	//------------------------------------------------- x + --------------------------------------------------------
 	glColor3f(1.0, 0.0, 0.0);
 	glBegin(GL_LINES);
 	glVertex2i(x_center, y_center);
 	glVertex2i(x, y_center);
 	glEnd();
+	//------------------------------------------------- y + --------------------------------------------------------
 	glColor3f(0.0, 1.0, 0.0);
 	glBegin(GL_LINES);
 	glVertex2i(x_center, y_center);
 	glVertex2i(x_center, y);
 	glEnd();
-  glColor3f(0.0, 0.0, 1.0);
+	//------------------------------------------------- x - --------------------------------------------------------
+	glColor3f(0.0, 0.0, 1.0);
 	glBegin(GL_LINES);
 	glVertex2i(x_center, y_center);
 	glVertex2i(0, y_center);
 	glEnd();
+	//------------------------------------------------- y - --------------------------------------------------------
 	glColor3f(1.0, 1.0, 0.0);
 	glBegin(GL_LINES);
 	glVertex2i(x_center, y_center);
 	glVertex2i(x_center, 0);
 	glEnd();
+	//------------------------------------------------- Linea mamalona --------------------------------------------------------
+	glColor3f(1.0, 1.0, 1.0);
+	glBegin(GL_LINES);
+	glVertex2i(-100+x_center, -200+y_center);
+	glVertex2i(50+x_center, 250+y_center);
+	glEnd();
+
 	glFlush();
 }
