@@ -1,98 +1,248 @@
-#include <iostream>
 #include "Shapes.h"
 #include <GL/glut.h>
 
-void quadrantFour(int, int, int, int);
-void initiate(int, int);
-void mainLines(void);
-
-int x, y;
-
-int main(int argc, char *argv[])
-{
-	glutInit(&argc, argv);
-	std::cout << "Please enter width size:";
-	std::cin >> x;
-	std::cout << "Please enter height size:";
-	std::cin >> y;
-	quadrantFour(0, 0, x, y);
-	glutMainLoop();
+// --------------- Rectangulos -------------------------------
+// ------- CONSTRUCTORES SOBRECARGADOS -----------------------
+// DE CREARSE EL OBJETO VACIO, AUTOMATICAMENTE SON ASIGNADOS
+// LOS VALORES FALTANTES, DEL MISMO MODO CON LOS OTROS 
+// CONSTRUCTORES QUE NO SE ENVIAN LOS PARAMETROS COMPLETOS ---
+Rectangle::Rectangle() {
+	setPosition(0, 0);
+	setColor(1.0, 1.0, 1.0);
+	setLineWidth(1);
+	setBase(50);
+	setHeight(25);
+	setArea();
+	setPerimeter();
 }
 
-void quadrantFour(int x_start, int y_start, int x_end, int y_end)
-{
-	glutInitDisplayMode(GLUT_SINGLE | GLUT_RGB);
-	glutInitWindowPosition(50, 50);
-	glutInitWindowSize(x_end + x_start, y_end + y_start); // Establece el tamaño de la ventana
-	glutCreateWindow("Four Quadrant Window");
-	initiate(x_end, y_end);
-	glutDisplayFunc(mainLines);
+Rectangle::Rectangle(int x, int y) {
+	setPosition(x, y);
+	setColor(1.0, 1.0, 1.0);
+	setLineWidth(1);
+	setBase(50);
+	setHeight(25);
+	setArea();
+	setPerimeter();
 }
 
-void initiate(int x_end, int y_end)
-{
-	glClearColor(0.0, 0.0, 0.0, 0.0);
-	glMatrixMode(GL_PROJECTION);
-	gluOrtho2D(-(x_end / 2), x_end / 2, -(y_end / 2), y_end / 2);
+Rectangle::Rectangle(int x, int y, int ba, int h) {
+	setPosition(x, y);
+	setColor(1.0, 1.0, 1.0);
+	setLineWidth(1);
+	setBase(ba);
+	setHeight(h);
+	setArea();
+	setPerimeter();
 }
 
-void mainLines(void)
-{
-	int x_center = (int)x / 2, y_center = (int)y / 2, spacing = 20;
-	glClear(GL_COLOR_BUFFER_BIT);
-	glColor3f(0.5, 0.5, 0.5);
-	glLineWidth(1);
-	glBegin(GL_LINES);
-	int x1 = 0 + spacing, x2 = 0 - spacing;
-	int y1 = 0 + spacing, y2 = 0 - spacing;
-	while (x1 < x / 2)
-	{
-		glVertex2i(x1, -y_center);
-		glVertex2i(x1, y_center);
-		glVertex2i(x2, -y_center);
-		glVertex2i(x2, y_center);
-		x1 += spacing;
-		x2 -= spacing;
-	}
-	while (y1 < y / 2)
-	{
-		glVertex2i(-x_center, y1);
-		glVertex2i(x_center, y1);
-		glVertex2i(-x_center, y2);
-		glVertex2i(x_center, y2);
-		y1 += spacing;
-		y2 -= spacing;
-	}
-	glEnd();
-	glColor3f(1.0, 0.0, 0.0);
-	glBegin(GL_LINES);
-	glVertex2i(0, 0);
-	glVertex2i(x_center, 0);
-	glEnd();
-	glColor3f(0.0, 1.0, 0.0);
-	glBegin(GL_LINES);
-	glVertex2i(0, 0);
-	glVertex2i(0, y_center);
-	glEnd();
-	glColor3f(0.0, 0.0, 1.0);
-	glBegin(GL_LINES);
-	glVertex2i(0, 0);
-	glVertex2i(-x_center, 0);
-	glEnd();
-	glColor3f(1.0, 1.0, 0.0);
-	glBegin(GL_LINES);
-	glVertex2i(0, 0);
-	glVertex2i(0, -y_center);
-	glEnd();
+Rectangle::Rectangle(int x, int y, int ba, int h, float r, float g, float b) {
+	setPosition(x, y);
+	setColor(r, g, b);
+	setLineWidth(1);
+	setBase(ba);
+	setHeight(h);
+	setArea();
+	setPerimeter();
+}
 
-	Rectangle rec(40, 20, 100, 120, 0.0, 1.0, 1.0, 5);
-	rec.drawShape();
+Rectangle::Rectangle(int x, int y, int ba, int h, float r, float g, float b, int lwidth) {
+	setPosition(x, y);
+	setColor(r, g, b);
+	setLineWidth(lwidth);
+	setBase(ba);
+	setHeight(h);
+	setArea();
+	setPerimeter();
+}
 
-	Square sq(60, 40, 60, 0.0, 1.0, 0.0, 3);
-	sq.drawShape();
+// ------- METODOS IMPLEMENTADOS DE LOS SETTERS --------------
+// SI ALGUNOS VALORES IMPORTANTES QUE PUDIESEN AFECTAR EL
+// FUNCIONAMIENTO DEL SET NO CONOCEN LOS REQUISITOS
+// NECESARIOS, SON ASIGNADOS VALORES PREDEFINIDOS ------------
+void Rectangle::setBase(int b) { 
+	if (b > 0) { base = b; }
+	else { base = 50; }
+}
 
-	Triangle tri(80, 60, 40, 40, 0.0, 0.0, 1.0, 4);
-	tri.drawShape();
+void Rectangle::setHeight(int h) { 
+	if (h > 0) { height = h; }
+	else { height = 25; }
+}
 
-	glFlush();
+// ------- METODO PARA REALIZAR EL TRAZO DE LA FIGURA --------
+// UNA VEZ LLAMADO EL METODO DRAWSHAPE, TOMA LOS COLORES Y LA
+// POSICION ASIGNADOS AL OBJETO RECTANGLE, SE ASIGNAN LAS 
+// COORDENADAS NECESARIAS PARA LOS VERTICES Y SE ESPECIFICA
+// EL ANCHO DE LINEA; FINALMENTE SE PINTA EL RECTANGULO ------
+void Rectangle::drawShape() {
+	Color aux_color = getColor();
+	Position aux_pos = getPosition();
+	int x1 = aux_pos.position_x, y1 = aux_pos.position_y;
+	int x2 = aux_pos.position_x + getBase(), y2 = aux_pos.position_y + getHeight();
+	glColor3f(aux_color.colorR, aux_color.colorG, aux_color.colorB);
+	glLineWidth(getLineWidth());
+	glBegin(GL_LINES);
+	glVertex2i(x1, y1);
+	glVertex2i(x1, y2);
+	glVertex2i(x1, y2);
+	glVertex2i(x2, y2);
+	glVertex2i(x2, y2);
+	glVertex2i(x2, y1);
+	glVertex2i(x2, y1);
+	glVertex2i(x1, y1);
+	glEnd();
+}
+
+// --------------- Cuadrado ----------------------------------
+Square::Square() {
+	setPosition(0, 0);
+	setColor(1.0, 1.0, 1.0);
+	setLineWidth(1);
+	setSide(50);
+	setArea();
+	setPerimeter();
+}
+
+Square::Square(int x, int y) {
+	setPosition(x, y);
+	setColor(1.0, 1.0, 1.0);
+	setLineWidth(1);
+	setSide(50);
+	setArea();
+	setPerimeter();
+}
+
+Square::Square(int x, int y, int s) {
+	setPosition(x, y);
+	setColor(1.0, 1.0, 1.0);
+	setLineWidth(1);
+	setSide(s);
+	setArea();
+	setPerimeter();
+}
+
+Square::Square(int x, int y, int s, float r, float g, float b) {
+	setPosition(x, y);
+	setColor(r, g, b);
+	setLineWidth(1);
+	setSide(s);
+	setArea();
+	setPerimeter();
+}
+
+Square::Square(int x, int y, int s, float r, float g, float b, int lwidth) {
+	setPosition(x, y);
+	setColor(r, g, b);
+	setLineWidth(lwidth);
+	setSide(s);
+	setArea();
+	setPerimeter();
+}
+
+// ------- METODOS IMPLEMENTADOS DE LOS SETTERS --------------
+void Square::setSide(int s) {
+	if (s > 0) { side = s; }
+	else { side = 50; }
+}
+
+// ------- METODO PARA REALIZAR EL TRAZO DE LA FIGURA --------
+void Square::drawShape() {
+	Color aux_color = getColor();
+	Position aux_pos = getPosition();
+	int x1 = aux_pos.position_x, y1 = aux_pos.position_y;
+	int x2 = aux_pos.position_x + getSide(), y2 = aux_pos.position_y + getSide();
+	glColor3f(aux_color.colorR, aux_color.colorG, aux_color.colorB);
+	glLineWidth(getLineWidth());
+	glBegin(GL_LINES);
+	glVertex2i(x1, y1);
+	glVertex2i(x1, y2);
+	glVertex2i(x1, y2);
+	glVertex2i(x2, y2);
+	glVertex2i(x2, y2);
+	glVertex2i(x2, y1);
+	glVertex2i(x2, y1);
+	glVertex2i(x1, y1);
+	glEnd();
+}
+
+// --------------- TRIANGULO ---------------------------------
+Triangle::Triangle() {
+	setPosition(0, 0);
+	setColor(1.0, 1.0, 1.0);
+	setLineWidth(1);
+	setBase(50);
+	setHeight(25);
+	setArea();
+	setPerimeter();
+}
+
+Triangle::Triangle(int x, int y) {
+	setPosition(x, y);
+	setColor(1.0, 1.0, 1.0);
+	setLineWidth(1);
+	setBase(50);
+	setHeight(25);
+	setArea();
+	setPerimeter();
+}
+
+Triangle::Triangle(int x, int y, int ba, int h) {
+	setPosition(x, y);
+	setColor(1.0, 1.0, 1.0);
+	setLineWidth(1);
+	setBase(ba);
+	setHeight(h);
+	setArea();
+	setPerimeter();
+}
+
+Triangle::Triangle(int x, int y, int ba, int h, float r, float g, float b) {
+	setPosition(x, y);
+	setColor(r, g, b);
+	setLineWidth(1);
+	setBase(ba);
+	setHeight(h);
+	setArea();
+	setPerimeter();
+}
+
+Triangle::Triangle(int x, int y, int ba, int h, float r, float g, float b, int lwidth) {
+	setPosition(x, y);
+	setColor(r, g, b);
+	setLineWidth(lwidth);
+	setBase(ba);
+	setHeight(h);
+	setArea();
+	setPerimeter();
+}
+
+// ------- METODOS IMPLEMENTADOS DE LOS SETTERS --------------
+void Triangle::setBase(int b) {
+	if (b > 0) { base = b; }
+	else { base = 50; }
+}
+
+void Triangle::setHeight(int h) {
+	if (h > 0) { height = h; }
+	else { height = 25; }
+}
+
+// ------- METODO PARA REALIZAR EL TRAZO DE LA FIGURA --------
+void Triangle::drawShape() {
+	Color aux_color = getColor();
+	Position aux_pos = getPosition();
+	int x1 = aux_pos.position_x, y1 = aux_pos.position_y;
+	int x2 = aux_pos.position_x + (getBase() / 2), y2 = aux_pos.position_y + getHeight();
+	int x3 = aux_pos.position_x + getBase(), y3 = y1;
+	glColor3f(aux_color.colorR, aux_color.colorG, aux_color.colorB);
+	glLineWidth(getLineWidth());
+	glBegin(GL_LINES);
+	glVertex2i(x1, y1);
+	glVertex2i(x2, y2);
+	glVertex2i(x2, y2);
+	glVertex2i(x3, y3);
+	glVertex2i(x3, y3);
+	glVertex2i(x1, y1);
+	glEnd();
 }
