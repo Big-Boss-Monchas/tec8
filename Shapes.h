@@ -1,7 +1,7 @@
 #ifndef SHAPES_H
 #define SHAPES_H
 #pragma once
-
+#include <cmath>
 // ------- CLASE PRINCIPAL ----------------------------------
 class Shapes
 {
@@ -31,11 +31,30 @@ class Shapes
 	// ALGUNAS SON VIRTUALES DEBIDO A QUE SERAN IMPLEMENTADAS
 	// EN LA CLASE HIJA --------------------------------------
 	public:
-		virtual void setPosition(int, int) = 0;
-		virtual void setColor(float, float, float) = 0;
-		virtual void setLineWidth(int) = 0;
-		virtual void setArea(void) = 0;
-		virtual void setPerimeter(void) = 0;
+		void setPosition(int x, int y) {
+			point.position_x = x;
+			point.position_y = y;
+		}
+		void setColor(float r, float g, float b) {
+			if ((r >= 0 && r <= 1) && (g >= 0 && g <= 1) && (b >= 0 && b <= 1))
+			{
+				color.colorR = r;
+				color.colorG = g;
+				color.colorB = b;
+			}
+			else
+			{
+				color.colorR = 1.0;
+				color.colorG = 1.0;
+				color.colorB = 1.0;
+			}
+		}
+		void setLineWidth(int width) {
+			if (width > 0) lineWidth = width;
+			else lineWidth = 1;
+		}
+		void setArea(void) { area = calculateArea(); }
+		void setPerimeter(void) { perimeter = calculatePerimeter(); }
 
 		Position getPosition() const { return point; }
 		Color getColor() const { return color; }
@@ -54,8 +73,8 @@ class Rectangle : public Shapes {
 
 	// ----- ATRIBUTOS PERTENECIENTES A RECTANGULO -----------
 	private:
-		double base;
-		double height;
+		int base;
+		int height;
 
 	// ----- PROTOTIPOS DE CONSTRUCTORES Y METODOS -----------
 	public:
@@ -65,19 +84,66 @@ class Rectangle : public Shapes {
 		Rectangle(int x, int y, int base, int height, float r, float g, float b);
 		Rectangle(int x, int y, int base, int height, float r, float g, float b, int lwidth);
 
-		void setPosition(int, int);
-		void setColor(float, float, float);
-		void setLineWidth(int);
-		void setArea(void);
-		void setPerimeter(void);
 		void setBase(int);
 		void setHeight(int);
 
-		double getBase() const { return base; }
-		double getHeight() const { return height; }
+		int getBase() const { return base; }
+		int getHeight() const { return height; }
 
 		double calculateArea() { return (base * height); }
 		double calculatePerimeter() { return (2 * (base + height)); }
+		void drawShape(void);
+};
+
+// ------- CLASE HIJA / CUADRADO -----------------------------
+class Square : public Shapes {
+
+	// ----- ATRIBUTOS PERTENECIENTES A CUADRADO -------------
+	private:
+		int side;
+
+	public:
+		Square();
+		Square(int x, int y);
+		Square(int x, int y, int s);
+		Square(int x, int y, int s, float r, float g, float b);
+		Square(int x, int y, int s, float r, float g, float b, int lwidth);
+
+		void setSide(int);
+
+		int getSide() const { return side; }
+
+		double calculateArea() { return (side * side); }
+		double calculatePerimeter() { return (4 * side); }
+		void drawShape(void);
+};
+
+// ------- CLASE HIJA / TRIANGULO ----------------------------
+class Triangle : public Shapes {
+
+	// ----- ATRIBUTOS PERTENECIENTES A TRIANGULO ------------
+	private:
+		int base;
+		int height;
+
+	public:
+		Triangle();
+		Triangle(int x, int y);
+		Triangle(int x, int y, int base, int height);
+		Triangle(int x, int y, int base, int height, float r, float g, float b);
+		Triangle(int x, int y, int base, int height, float r, float g, float b, int lwidth);
+
+		void setBase(int);
+		void setHeight(int);
+
+		int getBase() const { return base; }
+		int getHeight() const { return height; }
+
+		double calculateArea() { return (base * height) / 2; }
+		double calculatePerimeter() { 
+			double side_a = sqrt(pow(base, 2) + pow(height, 2));
+			return ((2 * side_a) * base); 
+		}
 		void drawShape(void);
 };
 
