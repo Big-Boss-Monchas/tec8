@@ -23,7 +23,7 @@ void quadrantFour(int x_start, int y_start, int x_end, int y_end)
 {
 	glutInitDisplayMode(GLUT_SINGLE | GLUT_RGB);
 	glutInitWindowPosition(50, 50);
-	glutInitWindowSize(x_end + x_start, y_end + y_start); // Establece el tamaño de la ventana
+	glutInitWindowSize(x_end + x_start, y_end + y_start); // Establece el tamaÃ±o de la ventana
 	glutCreateWindow("Four Quadrant Window");
 	initiate(x_end, y_end);
 	glutDisplayFunc(mainLines);
@@ -41,6 +41,7 @@ void mainLines(void)
 	int x_center = (int)x / 2, y_center = (int)y / 2, spacing = 20;
 	glClear(GL_COLOR_BUFFER_BIT);
 	glColor3f(0.5, 0.5, 0.5);
+	glLineWidth(1);
 	glBegin(GL_LINES);
 	int x1 = 0 + spacing, x2 = 0 - spacing;
 	int y1 = 0 + spacing, y2 = 0 - spacing;
@@ -84,8 +85,14 @@ void mainLines(void)
 	glVertex2i(0, -y_center);
 	glEnd();
 
-	Rectangle rec(40, 20, 20, 20, 0.0, 1.0, 1.0, 5);
+	Rectangle rec(40, 20, 100, 120, 0.0, 1.0, 1.0, 5);
 	rec.drawShape();
+
+	Square sq(60, 40, 60, 0.0, 1.0, 0.0, 3);
+	sq.drawShape();
+
+	Triangle tri(80, 60, 40, 40, 0.0, 0.0, 1.0, 4);
+	tri.drawShape();
 
 	glFlush();
 }
