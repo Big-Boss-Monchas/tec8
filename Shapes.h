@@ -2,7 +2,8 @@
 #define SHAPES_H
 #pragma once
 #include <cmath>
-#include <GL/glut>
+#include <GL/glut.h>
+
 // ------- CLASE PRINCIPAL ----------------------------------
 class Shapes
 {
@@ -353,4 +354,126 @@ public:
 	}
 };
 
+class Circle : public Shapes {
+private:
+	int radius;
+	int diameter;
+	const double PI = 3.141592;
+
+public:
+	Circle() {
+		setPosition(0, 0);
+		setColor(1.0, 1.0, 1.0);
+		setLineWidth(1);
+		setRadius(25);
+		diameter = getRadius() * 2;
+		area = calculateArea();
+		perimeter = calculatePerimeter();
+	}
+
+	Circle(int x, int y) {
+		setPosition(x, y);
+		setColor(1.0, 1.0, 1.0);
+		setLineWidth(1);
+		setRadius(25);
+		diameter = getRadius() * 2;
+		area = calculateArea();
+		perimeter = calculatePerimeter();
+	}
+
+	Circle(int x, int y, int rad) {
+		setPosition(x, y);
+		setColor(1.0, 1.0, 1.0);
+		setLineWidth(1);
+		setRadius(rad);
+		diameter = getRadius() * 2;
+		area = calculateArea();
+		perimeter = calculatePerimeter();
+	}
+
+	Circle(int x, int y, int rad, float r, float g, float b) {
+		setPosition(x, y);
+		setColor(r, g, b);
+		setLineWidth(1);
+		setRadius(rad);
+		diameter = getRadius() * 2;
+		area = calculateArea();
+		perimeter = calculatePerimeter();
+	}
+
+	Circle(int x, int y, int rad, float r, float g, float b, int lwidth) {
+		setPosition(x, y);
+		setColor(r, g, b);
+		setLineWidth(lwidth);
+		setRadius(rad);
+		diameter = getRadius() * 2;
+		area = calculateArea();
+		perimeter = calculatePerimeter();
+	}
+
+	void setRadius(int rad) {
+		if (rad > 0) { radius = rad; }
+		else { radius = 50; }
+	}
+
+	int getRadius() const { return radius; }
+	int getDiameter() const { return diameter; }
+
+	double calculateArea() { return (PI * (pow(radius, 2))); }
+	double calculatePerimeter() { return (2 * PI * radius); }
+
+	void drawShape() {
+		Color aux_color = getColor();
+		Position aux_pos;
+		aux_pos.position_x = 0;
+		aux_pos.position_y = getRadius();
+		glColor3f(aux_color.colorR, aux_color.colorG, aux_color.colorB);
+		glPointSize(getLineWidth());
+		float midpoint = 1 - radius;
+		circlePlotPoints(point.position_x, point.position_y, aux_pos);
+		while (aux_pos.position_x < aux_pos.position_y)
+		{
+			aux_pos.position_x++;
+			if (midpoint < 0)
+			{
+				midpoint += 2 * aux_pos.position_x + 1;
+			}
+			else
+			{
+				aux_pos.position_y--;
+				midpoint += 2 * (aux_pos.position_x - aux_pos.position_y) + 1;
+			}
+			circlePlotPoints(point.position_x, point.position_y, aux_pos);
+		}
+		
+	}
+
+	void circlePlotPoints(int x, int y, Position aux_pos) {
+		glBegin(GL_POINTS);
+		glVertex2i(x + aux_pos.position_x, y + aux_pos.position_y);
+		glVertex2i(x - aux_pos.position_x, y + aux_pos.position_y);
+		glVertex2i(x + aux_pos.position_x, y - aux_pos.position_y);
+		glVertex2i(x - aux_pos.position_x, y - aux_pos.position_y);
+		glVertex2i(x + aux_pos.position_y, y + aux_pos.position_x);
+		glVertex2i(x - aux_pos.position_y, y + aux_pos.position_x);
+		glVertex2i(x + aux_pos.position_y, y - aux_pos.position_x);
+		glVertex2i(x - aux_pos.position_y, y - aux_pos.position_x);
+		glEnd();
+	}
+	
+	void drawShapeTrig() {
+		Color aux_color = getColor();
+		Position aux_pos = point;
+		glColor3f(aux_color.colorR, aux_color.colorG, aux_color.colorB);
+		glLineWidth(getLineWidth());
+		int circle_points = 100;
+		glBegin(GL_LINE_LOOP);
+		for (int i = 0; i < circle_points; i++)
+		{
+			float angle = 2 * PI * float(i) / circle_points;
+			glVertex2f(aux_pos.position_x + getRadius() * cos(angle), aux_pos.position_y + getRadius() * sin(angle));
+		}
+		glEnd();
+	}
+};
 #endif // !SHAPES_H
