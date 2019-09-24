@@ -94,5 +94,11 @@ void mainLines(void)
 	Triangle tri(80, 60, 40, 40, 0.0, 0.0, 1.0, 4);
 	tri.drawShape();
 
+	Circle cir(100, 100, 50, 0.75, 0.75, 0.0, 2);
+	cir.drawShape();
+
+	Circle cir2(100, -100, 50, 0.75, 0.75, 0.0, 5);
+	cir2.drawShapeTrig();
+	
 	glFlush();
 }
