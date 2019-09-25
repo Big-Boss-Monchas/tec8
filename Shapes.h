@@ -120,6 +120,16 @@ public:
 		setBase(ba);
 		setHeight(h);
 	}
+	
+	Rectangle(const Rectangle &rectangle){
+		Position pos = rectangle.getPosition();
+		setPosition(pos.position_x, pos.position_y);
+		Color col = rectangle.getColor();
+		setColor(col.colorR, col.colorG, col.colorB);
+		setLineWidth(rectangle.getLineWidth());
+		setBase(rectangle.getBase());
+		setHeight(rectangle.getHeight());
+	};
 
 	// ------- METODOS IMPLEMENTADOS DE LOS SETTERS --------------
 	// SI ALGUNOS VALORES IMPORTANTES QUE PUDIESEN AFECTAR EL
