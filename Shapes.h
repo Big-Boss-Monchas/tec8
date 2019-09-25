@@ -55,8 +55,6 @@ public:
 		if (width > 0) lineWidth = width;
 		else lineWidth = 1;
 	}
-	/*void setArea(void) { area = calculateArea(); }
-	void setPerimeter(void) { perimeter = calculatePerimeter(); }*/
 
 	Position getPosition() const { return point; }
 	Color getColor() const { return color; }
@@ -89,8 +87,6 @@ public:
 		setLineWidth(1);
 		setBase(50);
 		setHeight(25);
-		area = calculateArea();
-		perimeter = calculatePerimeter();
 	}
 
 	Rectangle(int x, int y) {
@@ -99,8 +95,6 @@ public:
 		setLineWidth(1);
 		setBase(50);
 		setHeight(25);
-		area = calculateArea();
-		perimeter = calculatePerimeter();
 	}
 
 	Rectangle(int x, int y, int ba, int h) {
@@ -109,8 +103,6 @@ public:
 		setLineWidth(1);
 		setBase(ba);
 		setHeight(h);
-		area = calculateArea();
-		perimeter = calculatePerimeter();
 	}
 
 	Rectangle(int x, int y, int ba, int h, float r, float g, float b) {
@@ -119,8 +111,6 @@ public:
 		setLineWidth(1);
 		setBase(ba);
 		setHeight(h);
-		area = calculateArea();
-		perimeter = calculatePerimeter();
 	}
 
 	Rectangle(int x, int y, int ba, int h, float r, float g, float b, int lwidth) {
@@ -129,8 +119,6 @@ public:
 		setLineWidth(lwidth);
 		setBase(ba);
 		setHeight(h);
-		area = calculateArea();
-		perimeter = calculatePerimeter();
 	}
 
 	// ------- METODOS IMPLEMENTADOS DE LOS SETTERS --------------
@@ -140,11 +128,15 @@ public:
 	void setBase(int b) {
 		if (b > 0) { base = b; }
 		else { base = 50; }
+		area = calculateArea();
+		perimeter = calculatePerimeter();
 	}
 
 	void setHeight(int h) {
 		if (h > 0) { height = h; }
 		else { height = 25; }
+		area = calculateArea();
+		perimeter = calculatePerimeter();
 	}
 
 	int getBase() const { return base; }
@@ -186,8 +178,6 @@ public:
 		setColor(1.0, 1.0, 1.0);
 		setLineWidth(1);
 		setSide(50);
-		area = calculateArea();
-		perimeter = calculatePerimeter();
 	}
 
 	Square(int x, int y) {
@@ -195,8 +185,6 @@ public:
 		setColor(1.0, 1.0, 1.0);
 		setLineWidth(1);
 		setSide(50);
-		area = calculateArea();
-		perimeter = calculatePerimeter();
 	}
 
 	Square(int x, int y, int s) {
@@ -204,8 +192,6 @@ public:
 		setColor(1.0, 1.0, 1.0);
 		setLineWidth(1);
 		setSide(s);
-		area = calculateArea();
-		perimeter = calculatePerimeter();
 	}
 
 	Square(int x, int y, int s, float r, float g, float b) {
@@ -213,8 +199,6 @@ public:
 		setColor(r, g, b);
 		setLineWidth(1);
 		setSide(s);
-		area = calculateArea();
-		perimeter = calculatePerimeter();
 	}
 
 	Square(int x, int y, int s, float r, float g, float b, int lwidth) {
@@ -222,20 +206,20 @@ public:
 		setColor(r, g, b);
 		setLineWidth(lwidth);
 		setSide(s);
-		area = calculateArea();
-		perimeter = calculatePerimeter();
 	}
 
 	void setSide(int s) {
 		if (s > 0) { side = s; }
 		else { side = 50; }
+		area = calculateArea();
+		perimeter = calculatePerimeter();
 	}
 
 	int getSide() const { return side; }
 
 	double calculateArea() { return (side * side); }
 	double calculatePerimeter() { return (4 * side); }
-	
+
 	void drawShape() {
 		Color aux_color = getColor();
 		Position aux_pos = getPosition();
@@ -271,8 +255,6 @@ public:
 		setLineWidth(1);
 		setBase(50);
 		setHeight(25);
-		area = calculateArea();
-		perimeter = calculatePerimeter();
 	}
 
 	Triangle(int x, int y) {
@@ -281,8 +263,6 @@ public:
 		setLineWidth(1);
 		setBase(50);
 		setHeight(25);
-		area = calculateArea();
-		perimeter = calculatePerimeter();
 	}
 
 	Triangle(int x, int y, int ba, int h) {
@@ -291,8 +271,6 @@ public:
 		setLineWidth(1);
 		setBase(ba);
 		setHeight(h);
-		area = calculateArea();
-		perimeter = calculatePerimeter();
 	}
 
 	Triangle(int x, int y, int ba, int h, float r, float g, float b) {
@@ -301,8 +279,6 @@ public:
 		setLineWidth(1);
 		setBase(ba);
 		setHeight(h);
-		area = calculateArea();
-		perimeter = calculatePerimeter();
 	}
 
 	Triangle(int x, int y, int ba, int h, float r, float g, float b, int lwidth) {
@@ -311,18 +287,20 @@ public:
 		setLineWidth(lwidth);
 		setBase(ba);
 		setHeight(h);
-		area = calculateArea();
-		perimeter = calculatePerimeter();
 	}
 
 	void setBase(int b) {
 		if (b > 0) { base = b; }
 		else { base = 50; }
+		area = calculateArea();
+		perimeter = calculatePerimeter();
 	}
 
 	void setHeight(int h) {
 		if (h > 0) { height = h; }
 		else { height = 25; }
+		area = calculateArea();
+		perimeter = calculatePerimeter();
 	}
 
 	int getBase() const { return base; }
@@ -334,7 +312,7 @@ public:
 		double side_a = sqrt(pow(base, 2) + pow(height, 2));
 		return ((2 * side_a) * base);
 	}
-	
+
 	void drawShape() {
 		Color aux_color = getColor();
 		Position aux_pos = getPosition();
@@ -366,9 +344,7 @@ public:
 		setColor(1.0, 1.0, 1.0);
 		setLineWidth(1);
 		setRadius(25);
-		diameter = getRadius() * 2;
-		area = calculateArea();
-		perimeter = calculatePerimeter();
+
 	}
 
 	Circle(int x, int y) {
@@ -376,9 +352,6 @@ public:
 		setColor(1.0, 1.0, 1.0);
 		setLineWidth(1);
 		setRadius(25);
-		diameter = getRadius() * 2;
-		area = calculateArea();
-		perimeter = calculatePerimeter();
 	}
 
 	Circle(int x, int y, int rad) {
@@ -386,9 +359,6 @@ public:
 		setColor(1.0, 1.0, 1.0);
 		setLineWidth(1);
 		setRadius(rad);
-		diameter = getRadius() * 2;
-		area = calculateArea();
-		perimeter = calculatePerimeter();
 	}
 
 	Circle(int x, int y, int rad, float r, float g, float b) {
@@ -396,9 +366,6 @@ public:
 		setColor(r, g, b);
 		setLineWidth(1);
 		setRadius(rad);
-		diameter = getRadius() * 2;
-		area = calculateArea();
-		perimeter = calculatePerimeter();
 	}
 
 	Circle(int x, int y, int rad, float r, float g, float b, int lwidth) {
@@ -406,14 +373,14 @@ public:
 		setColor(r, g, b);
 		setLineWidth(lwidth);
 		setRadius(rad);
-		diameter = getRadius() * 2;
-		area = calculateArea();
-		perimeter = calculatePerimeter();
 	}
 
 	void setRadius(int rad) {
 		if (rad > 0) { radius = rad; }
 		else { radius = 50; }
+		diameter = getRadius() * 2;
+		area = calculateArea();
+		perimeter = calculatePerimeter();
 	}
 
 	int getRadius() const { return radius; }
@@ -445,7 +412,6 @@ public:
 			}
 			circlePlotPoints(point.position_x, point.position_y, aux_pos);
 		}
-		
 	}
 
 	void circlePlotPoints(int x, int y, Position aux_pos) {
@@ -460,7 +426,7 @@ public:
 		glVertex2i(x - aux_pos.position_y, y - aux_pos.position_x);
 		glEnd();
 	}
-	
+
 	void drawShapeTrig() {
 		Color aux_color = getColor();
 		Position aux_pos = point;
@@ -476,4 +442,5 @@ public:
 		glEnd();
 	}
 };
+
 #endif // !SHAPES_H
