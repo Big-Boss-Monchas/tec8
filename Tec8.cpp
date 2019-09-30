@@ -17,9 +17,9 @@ int x, y;
 int main(int argc, char* argv[])
 {
 	glutInit(&argc, argv);
-	std::cout << "Please enter width size:";
+	std::cout << "Please enter width size: ";
 	std::cin >> x;
-	std::cout << "Please enter height size:";
+	std::cout << "Please enter height size: ";
 	std::cin >> y;
 	quadrantFour(0, 0, x, y);
 	glutMainLoop();
@@ -90,32 +90,55 @@ void mainLines(void)
 	glVertex2i(0, 0);
 	glVertex2i(0, -y_center);
 	glEnd();
+	/*
+	Rectangle rec(0, 0, 100, 60, 0.0, 1.0, 1.0, 5);
+	rec.drawShape();
+	
+	rec.moveShape(100, 100);
+	rec.drawShapeFill();
 
-	Rectangle rec(40, 20, 100, 120, 0.0, 1.0, 1.0, 5);
+	rec.scaleShape(2.0);
 	rec.drawShape();
 
-	Square sq(60, 40, 60, 0.0, 1.0, 0.0, 3);
-	sq.drawShape();
-
-	Triangle tri(80, 60, 40, 40, 0.0, 0.0, 1.0, 4);
+	rec.rotateShape(0, 0, 45.0);
+	rec.drawShape();
+	*/
+	/*
+	Triangle tri(0, 0, 40, 60, 0.0, 0.0, 1.0, 4);
 	tri.drawShape();
 
-	Circle cir(100, 100, 50, 0.75, 0.75, 0.0, 2);
+	tri.moveShape(100, 100);
+	tri.drawShapeFill();
+
+	tri.scaleShape(2.0);
+	tri.drawShape();
+
+	tri.rotateShape(0, 0, 45.0);
+	tri.drawShape();*/
+	/*
+	Circle cir(0, 0, 50, 0.75, 0.75, 0.0, 2);
 	cir.drawShape();
 
 	Circle cir2(100, -100, 50, 0.75, 0.75, 0.0, 5);
 	cir2.drawShapeTrig();
-
-	/*sq.scaleShape(2.0, 2.0);
-	sq.drawShape();*/
-
-	rec.scaleShape(2.0, 2.0);
-	rec.drawShape();
-
-	/*sq.moveShape(-100, 100);
-	sq.drawShape();*/
-
 	
+	cir2.moveShape(100, 200);
+	cir2.drawShapeTrig();
 
+	cir2.scaleShape(2);
+	cir2.drawShapeTrig();*/
+	/*
+	Square sq(0, 0, 60, 0.0, 1.0, 0.0, 3);
+	sq.drawShape();
+
+	sq.scaleShape(2.0);
+	sq.drawShape();
+
+	sq.moveShape(200, 200);
+	sq.drawShape();
+
+	sq.rotateShape(0, 0, 45);
+	sq.drawShape();
+	*/
 	glFlush();
 }
